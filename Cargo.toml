@@ -1,0 +1,41 @@
+[package]
+name    = "rustcloud"
+version = "0.2.0"
+edition = "2021"
+description = "Unified, provider-agnostic Rust API for BigQuery, Vertex AI, Amazon Bedrock, and Azure OpenAI"
+license = "MIT"
+
+[dependencies]
+# Async runtime
+tokio        = { version = "1",    features = ["full"] }
+async-trait  = "0.1"
+futures      = "0.3"
+bytes        = "1"
+
+# HTTP
+reqwest      = { version = "0.12", features = ["json", "stream"] }
+
+# Serialization
+serde        = { version = "1",    features = ["derive"] }
+serde_json   = "1"
+
+# Error handling
+thiserror    = "1"
+
+# Auth — GCP (JWT RS256)
+jsonwebtoken = "9"
+base64       = "0.22"
+
+# Auth — AWS SigV4
+hmac         = "0.12"
+sha2         = "0.10"
+hex          = "0.4"
+chrono       = { version = "0.4", features = ["serde"] }
+
+# Utilities
+tokio-util   = { version = "0.7", features = ["io"] }
+url          = "2"
+
+[dev-dependencies]
+tokio-test   = "0.4"
+mockito      = "1"
