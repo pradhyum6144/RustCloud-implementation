@@ -2,6 +2,11 @@
 /target/
 Cargo.lock
 
+# Private keys / credentials
+*.pem
+*.json
+!Cargo.json
+
 # IDE
 .idea/
 .vscode/

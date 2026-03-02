@@ -13,8 +13,8 @@ use std::collections::HashMap;
 
 /// Create a GcpTokenProvider that returns a fixed token.
 ///
-/// Since we can't sign real JWTs without a private key, we mock the
-/// token exchange endpoint as well.
+/// We mock the token exchange endpoint so the key is never used against
+/// a real service — it only needs to be a valid PEM for `jsonwebtoken`.
 async fn mock_token_provider(server: &mut Server) -> GcpTokenProvider {
     // Mock the OAuth2 token endpoint
     server
@@ -25,14 +25,29 @@ async fn mock_token_provider(server: &mut Server) -> GcpTokenProvider {
         .create_async()
         .await;
 
+    // Generate a throwaway RSA key for test signing (never leaves localhost)
+    let test_pem = generate_test_rsa_key();
+
     let key = ServiceAccountKey {
         client_email: "test@test.iam.gserviceaccount.com".to_string(),
-        private_key: include_str!("test_fixtures/fake_rsa_key.pem").to_string(),
+        private_key: test_pem,
         token_uri: format!("{}/token", server.url()),
         project_id: Some("test-project".to_string()),
     };
 
     GcpTokenProvider::new(key)
+}
+
+/// Generate an RSA-2048 key in PEM format for tests.
+/// This key is ephemeral — created fresh for each test run.
+fn generate_test_rsa_key() -> String {
+    use std::process::Command;
+    let output = Command::new("openssl")
+        .args(["genpkey", "-algorithm", "RSA", "-pkeyopt", "rsa_keygen_bits:2048"])
+        .output()
+        .expect("openssl must be available to run tests");
+    assert!(output.status.success(), "openssl key generation failed");
+    String::from_utf8(output.stdout).expect("PEM should be valid UTF-8")
 }
 
 /// Helper to create a `GcpBigQuery` pointed at the mock server.
