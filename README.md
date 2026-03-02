@@ -1,4 +1,4 @@
-# 🌩️ RustCloud
+#  RustCloud
 
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -11,31 +11,31 @@ RustCloud provides a single, composable trait interface that abstracts over mult
 
 ---
 
-## 🎯 Problem
+##  Problem
 
 Teams building data pipelines, AI-powered services, or analytics platforms must interface with **BigQuery** (GCP), **Vertex AI** (GCP), **Amazon Bedrock** (AWS), and **Azure OpenAI** simultaneously. Each has a different API surface, auth model, SDK convention, and error philosophy. This fragmentation creates:
 
-- 🔁 Separate integration layers per provider
-- 💔 Rewritten business logic during migrations
-- 🧠 Increased cognitive load across fundamentally different SDKs
-- ⏱️ Slower iteration in the domains where speed matters most
+-  Separate integration layers per provider
+-  Rewritten business logic during migrations
+-  Increased cognitive load across fundamentally different SDKs
+-  Slower iteration in the domains where speed matters most
 
 **RustCloud solves this** with a trait-based abstraction layer — idiomatic Rust, not SDK wrappers.
 
 ---
 
-## 📦 Service Coverage
+##  Service Coverage
 
 | Service Category | Trait | Provider | Backend API | Status |
 |---|---|---|---|---|
-| **Analytics** | `BigQueryService` | GCP | BigQuery REST API v2 | ✅ Complete |
-| **ML Platform** | `VertexAIService` | GCP | Vertex AI REST API v1 | 🚧 Planned |
-| **GenAI (LLM)** | `GenAIService` | AWS | Amazon Bedrock Runtime | 🚧 Planned |
-| **GenAI (LLM)** | `GenAIService` | Azure | Azure OpenAI Service | 🚧 Planned |
+| **Analytics** | `BigQueryService` | GCP | BigQuery REST API v2 |  Complete |
+| **ML Platform** | `VertexAIService` | GCP | Vertex AI REST API v1 |  Planned |
+| **GenAI (LLM)** | `GenAIService` | AWS | Amazon Bedrock Runtime |  Planned |
+| **GenAI (LLM)** | `GenAIService` | Azure | Azure OpenAI Service |  Planned |
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -71,7 +71,7 @@ Teams building data pipelines, AI-powered services, or analytics platforms must 
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### BigQuery — List Datasets
 
@@ -89,7 +89,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Use the trait — code is provider-agnostic
     let datasets = bq.list_datasets("my-gcp-project").await?;
     for ds in &datasets {
-        println!("📁 {} (location: {})", ds.dataset_id, ds.location);
+        println!(" {} (location: {})", ds.dataset_id, ds.location);
     }
     Ok(())
 }
@@ -115,7 +115,7 @@ println!("Returned {} rows (job complete: {})", result.rows.len(), result.job_co
 
 ---
 
-## 🔧 API Reference
+## API Reference
 
 ### `BigQueryService` — 11 Methods
 
@@ -157,7 +157,7 @@ println!("Returned {} rows (job complete: {})", result.rows.len(), result.job_co
 
 ---
 
-## 🔐 Authentication
+##  Authentication
 
 RustCloud implements three production-grade auth flows:
 
@@ -186,7 +186,7 @@ let token = azure.get_token().await?;
 
 ---
 
-## ⚠️ Error Handling
+##  Error Handling
 
 All provider errors are normalized into a single `RustCloudError` enum — callers never see provider-specific types:
 
@@ -216,7 +216,7 @@ match bq.list_datasets("project").await {
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 rustcloud/
@@ -252,7 +252,7 @@ rustcloud/
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 # Run all tests (no cloud credentials needed — uses HTTP mocks)
@@ -283,7 +283,7 @@ test result: ok. 10 passed; 0 failed; 0 ignored
 
 ---
 
-## 🔨 Building
+##  Building
 
 ```bash
 # Build the library
@@ -301,7 +301,7 @@ cargo clippy
 
 ---
 
-## 📦 Dependencies
+##  Dependencies
 
 | Crate | Purpose |
 |---|---|
@@ -318,39 +318,20 @@ cargo clippy
 
 ---
 
-## 🗺️ Roadmap
+##  Roadmap
 
 | Week | Focus | Status |
 |---|---|---|
-| 1 | Trait interfaces + error architecture | ✅ Complete |
-| 2 | Authentication modules (GCP, AWS, Azure) | ✅ Complete |
-| 3–4 | BigQuery dataset & table operations | ✅ Complete |
-| 5 | BigQuery query & job operations | ✅ Complete |
-| 6 | Integration tests + documentation | 🚧 In progress |
-| 7–8 | Vertex AI implementation | 📋 Planned |
-| 9–10 | Bedrock + Azure OpenAI implementation | 📋 Planned |
-| 11–12 | Documentation, CI, hardening | 📋 Planned |
+| 1 | Trait interfaces + error architecture |  Complete |
+| 2 | Authentication modules (GCP, AWS, Azure) |  Complete |
+| 3–4 | BigQuery dataset & table operations | Complete |
+| 5 | BigQuery query & job operations | Complete |
+| 6 | Integration tests + documentation |  In progress |
+| 7–8 | Vertex AI implementation |  Planned |
+| 9–10 | Bedrock + Azure OpenAI implementation |  Planned |
+| 11–12 | Documentation, CI, hardening |  Planned |
 
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/your-feature`)
-3. Write tests for new functionality
-4. Ensure `cargo test` and `cargo clippy` pass
-5. Submit a pull request
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
 
 <p align="center">
-  Built with 🦀 Rust • Part of <a href="https://summerofcode.withgoogle.com/">Google Summer of Code 2026</a>
+  Built with  Rust • Part of <a href="https://summerofcode.withgoogle.com/">Google Summer of Code 2026</a>
 </p>
